@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>DataGrid inline editing - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="js/jQueryEasyUI/demo/demo.css">
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/estilos.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+	<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<script type="text/javascript" src="js/jQueryEasyUI/jquery.easyui.mobile.js"></script>
+	<link rel="stylesheet" type="text/css" href="js/jQueryEasyUI/themes/mobile.css">  
+    <link rel="stylesheet" type="text/css" href="js/jQueryEasyUI/themes/icon.css">  
+	
+	<script>
+		$(function(){
+			$('#tt').datagrid({
+				title:'Investment DataGrid',
+				//iconCls:'icon-edit',
+				width:370,
+				singleSelect:true,
+				cache: false,
+				//idField:'itemid',
+				url:'/api/v2/countriesinversions',
+				method: 'GET',
+				columns:[[
+					{field:'country',title:'Country',width:86,align:'center',editor:'text'},
+					{field:'year',title:'Year',width:80,align:'center',editor:'numberbox'},
+					{field:'inversion',title:'Investment',width:80,align:'center',editor:'numberbox'},
+					{field:'action',title:'Action',width:90,align:'center',
+						formatter:function(value,row,index){
+							if (row.editing){
+								var s = '<a href="#" >Save</a> ';
+								var c = '<a href="#" >Cancel</a>';
+								return s+c;
+							} else {
+								var e = '<a href="#" ><span class="icon-pencil"></span></a> ';
+								var d = '<a href="#" onclick="deleterow(this)"><span class="icon-cross"></span></a>';
+								return e+d;
+							}
+						}
+					}
+				]],
+				
+				onLoadSuccess:function(data) {
+						var tr = $("tbody")[2];
+						var hijos = ($(tr).children());
+						for(var i = 0; i < hijos.length; i++){
+							var country = $(hijos[i]).children()[0];
+							country = $(country).first().text();
+							var year = $(hijos[i]).children()[1];
+							year = $(year).first().text();
+							var temp3 = $(hijos[i]).children()[3];
+							var divDeEnlaces = $(temp3).first().children()[0];
+							var enlaceEditar = $(divDeEnlaces).children()[0];
+							console.log(enlaceEditar);
+							var enlaceBorrar = $(divDeEnlaces).children()[1];
+							console.log(enlaceBorrar);
+							$(enlaceEditar).attr('href', 'editResourceIn.html?country='+country+'&year='+year);
+							//$(enlaceBorrar).attr('href', 'deleteResource.html?country='+country+'&year='+year);
+						} 		
+				},
+				 onBeforeEdit:function(index,row){
+            row.editing = true;
+            updateActions(index);
+       	 },
+        onAfterEdit:function(index,row){
+            row.editing = false;
+            updateActions(index);
+        },
+        onCancelEdit:function(index,row){
+            row.editing = false;
+            updateActions(index);
+        }
+			});
+		});
+		function updateActions(index){
+			$('#tt').datagrid('updateRow',{
+				index: index,
+				row:{}
+			});
+		}
+		function getRowIndex(target){
+			var tr = $(target).closest('tr.datagrid-row');
+			var trcolum = $(tr).first();
+			console.log(trcolum);
+			return parseInt(tr.attr('datagrid-row-index'));
+		}
+		function editrow(target){
+			$('#tt').datagrid('beginEdit', getRowIndex(target));
+			console.log(getRowIndex(target));
+		}
+		function deleterow(target){
+			
+			
+			// Una vez terminada la request, se borra de la tabla. 
+			var win = $.messager.confirm('Confirm','Are you sure?',function(r){
+							if (r){
+								// Borrado de la BD
+									
+									// Obtenemos Country y Year
+									var tr = $("tbody")[2];
+									var hijos = ($(tr).children());
+									var country, year;
+									var indice = getRowIndex(target);
+									console.log(indice);
+									country = $(hijos[indice]).children()[0];
+									country = $(country).first().text();
+									year = $(hijos[indice]).children()[1];
+									year = $(year).first().text();
+								
+									console.log(country + year);
+									// Petición de Delete a la BD.
+									var request = $.ajax({
+										url: '/api/v2/countriesinversions/'+country+'/'+year,
+										type: 'DELETE',
+									});
+									
+									request.done(function(data, status, jqXHR){
+										if(data != ""){
+											//data = '[{"country": "spain"}, {"country": "portugal"}]';
+											$("#data").text(data);
+											var parsedData = $.parseJSON(data);
+											 $("#list").empty();
+											
+											 if(Array.isArray(parsedData)){
+												 for(var i in parsedData){
+													 
+													 var dump = "";
+													 var obj = parsedData[i];
+													 for(var prop in obj){
+														 dump += "[" + prop + " = " + obj[prop] + "]";
+													 }
+													 $("#list").append("<li>"+dump+"</li>");
+												 }
+											 }else{
+												var dump = "";
+												var obj = parsedData;
+												for(var prop in obj){
+													dump += "[" + prop + " = " + obj[prop] + "]";
+												}
+											 }
+										}else{
+											$("#list").empty();
+											$("#data").empty();
+										}
+									});
+								
+									request.always(function(jqXHR, status){
+										if(status == "error"){
+											$("#status").text(jqXHR.status);
+											$("#list").empty();
+											$("#data").empty();
+										}else{
+											$("#status").text("200 OK");
+											console.log("Done!");
+										}
+										$("#log").text("Done! ");
+									});
+											$('#tt').datagrid('deleteRow', getRowIndex(target));
+											
+										}
+									});
+				win.window('move',{top:100});
+			
+		}
+		function saverow(target){
+			$('#tt').datagrid('endEdit', getRowIndex(target));
+		}
+		function cancelrow(target){
+			$('#tt').datagrid('cancelEdit', getRowIndex(target));
+		}
+	</script>
+	
+	<script>
+		
+	</script>
+</head>
+<body>
+	<header>
+	</header>
+	<section class="contenidoPropio">
+		<div class="container">
+			<div class="demo-info">
+				<div><p class="parrafoTablas">Click the edit button on the right side of row to start editing.</p></div>
+			</div>
+			<div id="tabla">
+				<table id="tt"></table>
+			</div>
+		</div>
+	</section>
+	<br/>
+	<footer>
+		<div class="container-fluid">
+			<h3>Marcos Ginel Calderón/Cristina Perea Ruiz</h3>
+		</div></footer>
+	<script type="text/javascript" src="js/menu.js"></script>
+</body>
+</html>

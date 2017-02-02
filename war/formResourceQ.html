@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>Grid</title>
+		
+		<link rel="stylesheet" href="css/estilos.css">
+		<link rel="stylesheet" href="css/fonts.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<script type="text/javascript" src="js/jquery-2.1.3.js"></script> 
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+		
+		
+	</head>
+<body>
+	<header>
+	</header>
+		
+	<section class="contenidoPropio">
+	<!-- Falta añadir dinámicamente con jQuery a los form-group el has-success - has-error :) -->
+		<div class="container">
+			<form onSubmit='sendPetition()' action="exito.html" class="form-horizontal">
+				<div class="form-group">
+					<label for="country" class="control-label col-md-2">Country:</label>
+					<div class="col-md-10">
+						<input class="form-control" type="text" id="country" placeholder="Country" required pattern="[a-zA-Z ]+">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="year" class="control-label col-md-2">Year:</label>
+					<div class="col-md-10">
+					<input class="form-control" type="number" id="year" placeholder="Year" required>
+					<p class="help-block">0000</p></div>
+				</div>
+				<div class="form-group">
+					<label for="quantity" class="control-label col-md-2">Quantity:</label>
+					<div class="col-md-10">
+					<input class="form-control" type="number" step="any" id="quantity" placeholder="Quantity" required>
+					<p class="help-block"></p></div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-2 col-md-offset-2">
+						<button class="btn btn-primary materialdesign">Send</button>
+					</div>
+				</div>
+			</form>
+			<hr>
+			<!-- El método tiene que ser POST y el enctype "multipart/form-data"
+				 Lo atenderá el servlet que esté asignado a la url uploadCSVCo.html -->
+			<!-- <form method="POST" enctype="multipart/form-data" class="form-horizontal">
+				<div class="form-group">
+					<p class="control-label col-md-3">Or if you prefer, select a valid CSV</p>
+				</div>
+				<div class="form-group">
+					<label for="fichero" class="control-label col-md-2">Select File: </label>
+					<div class="col-md-10">
+						<input type="file" id="fichero" class="form-control" name="fichero"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-2 col-md-offset-2">
+						<button class="btn btn-primary materialdesign">Upload</button>
+					</div>
+				</div>
+			</form>-->
+		</div>
+	</section>
+	<footer>
+		<div class="container-fluid">
+			<h6>Marcos Ginel/Cristina Perea</h6>
+		</div>
+	</footer>
+	
+	<script type="text/javascript" src="js/menu.js"></script>	
+	<script type="text/javascript" src="js/formResourceQ.js"></script>
+	<script type="text/javascript" src="js/uploadCSVJS.js"></script>
+ 	
+	
+</body>
+</html>

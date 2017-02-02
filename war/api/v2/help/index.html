@@ -1,0 +1,124 @@
+<html>
+<head>
+	<title>Ayuda sobre las APIs V1 y V2</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>SOS - Group 2 - App Engine</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Grid</title>
+	<link rel="stylesheet" href="../../../css/estilos.css">
+	<link rel="stylesheet" href="../../../css/estilosAyuda.css">
+	<link rel="stylesheet" href="../../../css/fonts.css">
+	<link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="../../../css/bootstrap.css">
+	<script type="text/javascript" src="../../../js/jquery-2.1.3.js"></script>  
+	<script type="text/javascript" src="../../../js/bootstrap.js"></script>
+</head>
+<body>
+	<header></header>
+	<section class="contenidoPropio">
+  		<div class="container">
+  			<a name="intro"></a>
+			<h1>AVISO: Se recomienda usar Google Chrome en dispositivos Móviles</h1>
+			<h2>Introducción</h2>
+			<ul>
+				<li><a href="#intro">Introducción</a></li>
+				<li><a href="#apiv1">API v1</a></li>
+				<li><a href="#apiv2">API v2</a></li>
+				<li><a href="#clientes">Clientes API</a></li>
+				<li><a href="#new">Nuevos elementos</a></li>
+				<li><a href="#mapas">Mapas</a></li>
+				<li><a href="#tablas">Tablas, borrado y edición</a></li>
+				<li><a href="#responsive">Responsive & <a href="http://www.google.com/design/spec/material-design/introduction.html" target="news">Material Design</a></a></li>
+			</ul>
+			<p>Se han diseñado para dos recursos muy parecidos dos APIs distintas para su uso siguiendo las directrices de <a target="news" href="http://www.restapitutorial.com/">RESTful APIs.</a></p>
+			<p>La segunda de estas APIs es la que más respeta el funcionamiento de las APIRestfull, y la que primero 
+			propuso Pablo Fernández para hacer. Visto que daba para poco juego la parte concerniente a los datos, ya que
+			parte de los propios datos pertenecen a la "estructura de urls APIs", se optó por generar una primera API.</p>
+			<p>Se ha optado por usar SIEMPRE la <b>V2</b>, aunque se ha buscado la compatibilidad de ambas.</p>
+			<p>Nuestros recursos son:</p>
+				<ul>
+					<li> La emisión de co2 de cada país (api/v1/co2 o api/v2/co2) </li>
+					<li> La inversion en dichos paises desde paises más desarrollados (api/v1/countriesinversions o /api/v2/countriesinversions)</li>
+				</ul>	
+			
+			<hr/>
+			<a name="apiv1"></a><p>AVISO: Si existiese algún posible bug, es de seguro fácilmente solventable ya que actualmente conviven ambas
+			APIs y se ha intentado la mayor compatibilidad. La API v1 va creando la información por fases (tal y como nos lo
+			dijo Pablo en su primera versión). La API v2 la crea de golpe respetando lo que nos informó Pablo de que siempre
+			nos llegará al servidor una tupla, y devolveremos tuplas.</p>
+			<hr/>
+			<h2>API v1<h6><a href="#intro">Arriba</a></h6></h2>
+			<p>Esta API va a ir creando los objetos poco a poco. Primero habrá que hacer un POST del país, luego otro POST 
+			en la "subcarpeta" del pais para introducir el año, y luego un PUT en dicho año.</p>
+			<p><ul><a name="apiv2"></a>
+				<li>POST /api/v1/co2 Portugal
+				<li>POST /api/v1/co2/Portugal 1992
+				<li>PUT  /api/v1/co2/Portugal/1992 5.4
+			</ul></p>
+			<h2>API v2 (usada)<h6><a href="#intro">Arriba</a></h6></h2>
+			<p>Aquí siempre vamos a pasar tuplas completas en JSON con campos country, year y quantity para co2, y country, year
+			e inversion para countriesinversions</p>
+			<p><ul>
+				<li>POST /api/v1/co2 {"country":"Portugal", "year":"1992", "quantity":"5.4"}
+				<li>POST /api/v1/countriesinversions {"country":"Portugal", "year":"1992", "inversion":"25000"}
+				<li>PUT  /api/v1/co2/Portugal/1992 {"country":"Portugal", "year":"1992", "quantity":"6.9"}
+				<li>PUT /api/v1/countriesinversions/Portugal/1992 {"country":"Portugal", "year":"1992", "inversion":"10000"}
+			</ul>
+			<a name="clientes"></a>
+			Se recuerda que la V1 está obsoleta.</p>
+			<h2>Opciones de la aplicación</h2>
+			<h3>Clientes APIs<h6><a href="#intro">Arriba</a></h6></h3>
+			<p>Aquí podremos ver el cliente <a target="news" href="https://jquery.com/">jQuery</a> REST para las APIs y usarlo para consultas.</p>
+			<p>Si se quiere eliminar todo el DataStore, se recomienda usar el Delete desde aquí.</p>
+			<img class="img-responsive" src="01.png" class="img-responsive">
+			<br/>
+			<br/>
+			<img class="img-responsive" src="02.png">
+			<a name="new"></a><br/>
+			<br/><p>Estos clientes han sido implementados durante las clases, son bastante interesantes desde el punto de vista académico. Además están formateados con <a target="news" href="http://getbootstrap.com/">Bootstrap 3</a></p><br/>
+			
+			<h3>Añadir Nuevos Elementos<h6><a href="#intro">Arriba</a></h6></h3>
+			<p>Con pulsar en New Investment o New Quantity se podrán añadir nuevos elementos.</p>
+			<p>Para New Investment hay que añadir</p>
+			<ul>
+				<li>Nombre del pais (En Inglés)</li>
+				<li>Año (número entero)</li>
+				<li>Inversion (número entero)</li>
+			</ul>
+			<p>Para New Quantity hay que añadir</p>
+			<ul>
+				<li>Nombre del pais (En Inglés)</li>
+				<li>Año (número entero)</li>
+				<li>Cantidad de emision de Co2 (número decimal)</li>
+			</ul>
+			<img class="img-responsive" src="03.png"/><a name="mapas"></a><br/><br/><p>Todos los formularios tienen su validación HTML5 pertinente.</p><br/>
+			<h3>Mapas<h6><a href="#intro">Arriba</a></h6></h3>
+			<p>Pinchando en el Menú Maps, se desplegará un mapa para cada tipo de recurso:</p>
+			<img class="img-responsive" src="04.png"/>
+			<br/>
+			<br/>
+			<p>Luego se elige un año, y se muestran los datos</p>
+			<img class="img-responsive" src="05.png"/>
+			<br/>
+			<br/>
+			<p>Pinchando en cualquier pais se mostrará (petición a API externa) los datos de los vecinos</p>
+			<img class="img-responsive" src="06.png"/><br/><br/><a name="tablas"></a><p>En cualquier momento se puede seleccionar cualquier año, redimensionar ventana, pasar a otro dispositivo, o seleccionar otro país.</p><br/>
+			<h3>Tablas y edición<h6><a href="#intro">Arriba</a></h6></h3>
+			<p>Pinchando en el Menú Charts, se desplegará un chart para cada tipo de recurso:</p>
+			<img class="img-responsive" src="07.png"/>
+			<br/>
+			<br/>
+			<p>Podemos pulsar en Editar (lápiz) y se nos enviará a un formulario de edición del recurso, o bien pinchar en la X (borrar) y se nos pedirá confirmación</p>
+			<img class="img-responsive" src="08.png"/><br/><br/><a name="responsive"></a><p>En los formularios de edición se han bloqueado los campos Country y Year en función de los seleccionados y se validará el dato introducido con HTML5.</p><br/>
+			<h3>Responsive Design, <a href="http://www.google.com/design/spec/material-design/introduction.html" target="news">Material Design</a> y más...<h6><a href="#intro">Arriba</a></h6></h3>
+			<p>Se han seguido todos los principios de <a href="http://www.google.com/design/spec/material-design/introduction.html" target="news">Material Design</a> de cara a aplicaciones móviles para Android propuestos por Google; además se ha usado <a target="news" href="http://getbootstrap.com/">Bootstrap 3</a> y <a target="news" href="https://jquery.com/">jQuery</a>, para poder darle dinamismo y poder pasar de una interfaz a otra y el propio estilo (nótese cómo los "elementos" toman forma 3D gracias a las sombras al pasar a móvil)</p>
+			<img class="img-responsive" src="09.png"/>
+			<br/>
+			<br/><br/><br/>
+		</div>
+	</section>
+    <footer >
+	</footer>
+    <script type="text/javascript" src="../../../js/menu.js"></script>	
+</body>
+</html>

@@ -1,0 +1,13 @@
+ul {
+	padding-left:30px;
+}
+
+h2 {
+	text-decoration: underline;
+}
+
+img {
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}

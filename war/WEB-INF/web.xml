@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<!-- Tengo un servlet que está en esa clase -->
+	<servlet>
+		<servlet-name>Sos_2015_02</servlet-name>
+		<servlet-class>us.es.sos.Sos_2015_02Servlet</servlet-class>
+	</servlet>
+	<!-- Asociado a esta url... /sos_2015_02 -->
+	<servlet-mapping>
+		<servlet-name>Sos_2015_02</servlet-name>
+		<url-pattern>/sos_2015_02</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+	<!-- CriPerRui servlets -->
+	<servlet>
+	    <servlet-name>Proxy</servlet-name>
+	    <servlet-class>us.es.sos.Proxy</servlet-class>
+	</servlet>
+	<servlet>
+	    <servlet-name>PreCharge</servlet-name>
+	    <servlet-class>us.es.sos.PreCharge</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SaludoServletCriperrui</servlet-name>
+		<servlet-class>us.es.sos.SaludoServletCriperrui</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaludoServletCriperrui</servlet-name>
+		<url-pattern>/saludoCriperrui/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CountriesInversions</servlet-name>
+		<servlet-class>us.es.sos.CountriesInversions</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CountriesInversions</servlet-name>
+		<url-pattern>/api/v1/countriesinversions</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CountriesInversions</servlet-name>
+		<url-pattern>/api/v1/countriesinversions/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CountriesInversions</servlet-name>
+		<servlet-class>us.es.sos.CountriesInversions</servlet-class>
+	</servlet>
+	<servlet>
+	    <servlet-name>UploadCSVCo</servlet-name>
+	    <servlet-class>us.es.sos.UploadCSVCo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CountriesInversions</servlet-name>
+		<url-pattern>/api/v2/countriesinversions</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CountriesInversions</servlet-name>
+		<url-pattern>/api/v2/countriesinversions/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>UploadCSVCo</servlet-name>
+	    <url-pattern>/uploadCSVCo.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>PreCharge</servlet-name>
+	    <url-pattern>/preCharge.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>Proxy</servlet-name>
+	    <url-pattern>/proxy/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Marcos servlet -->
+	<servlet>
+	    <servlet-name>UploadCSVCo</servlet-name>
+	    <servlet-class>us.es.sos.UploadCSVCo</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SaludoServletMarcos</servlet-name>
+		<servlet-class>us.es.sos.SaludoServletMarcos</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaludoServletMarcos</servlet-name>
+		<url-pattern>/saludoMarcos/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Co2</servlet-name>
+		<servlet-class>us.es.sos.Co</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Co2</servlet-name>
+		<url-pattern>/api/v1/co2</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Co2</servlet-name>
+		<url-pattern>/api/v1/co2/*</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>Co2</servlet-name>
+		<url-pattern>/api/v2/co2</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Co2</servlet-name>
+		<url-pattern>/api/v2/co2/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>UploadCSVCo</servlet-name>
+	    <url-pattern>/uploadCSVIn.html</url-pattern>
+	</servlet-mapping>
+</web-app>
